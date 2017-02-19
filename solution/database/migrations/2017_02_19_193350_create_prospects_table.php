@@ -13,7 +13,20 @@ class CreateProspectsTable extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('prospects', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name');
+            $table->dateTime('birthday');
+            $table->string('email');
+            $table->string('phone');
+            $table->integer('region_id')->unsigned()->nullable();
+            $table->integer('unity_id')->unsigned()->nullable();
+            $table->integer('total_score');
+            $table->timestamps();
+            
+            $table->foreign('region_id')->references('id')->on('regions'); 
+            $table->foreign('unity_id')->references('id')->on('unities'); 
+        });
     }
 
     /**
@@ -23,6 +36,6 @@ class CreateProspectsTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('prospects');
     }
 }

@@ -13,7 +13,16 @@ class CreateUnitiesTable extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('unities', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name');
+            $table->integer('region_id')->unsigned();
+            $table->boolean('has_custom_score')->default(false);
+            $table->integer('custom_score')->nullable();
+            $table->timestamps();
+            
+            $table->foreign('region_id')->references('id')->on('regions'); 
+        });
     }
 
     /**
@@ -23,6 +32,6 @@ class CreateUnitiesTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('unities');
     }
 }
