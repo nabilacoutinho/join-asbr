@@ -13,6 +13,8 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::post('leads', 'ProspectController@store');
+Route::post('leads/{id}', 'ProspectController@edit');
+
+Route::get('regions', 'RegionController@listRegions');
+Route::get('regions/{id}/unities', 'RegionController@listUnities');

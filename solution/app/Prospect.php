@@ -45,7 +45,7 @@ class Prospect extends Model
         
         $initialScore = config('custom.prospect_initial_score'); // get it from custom configs
         
-        $regionScore = (!empty($this->region)) ? $this->calculateRegionScore() : 0;
+        $regionScore = (!empty($this->region_id)) ? $this->calculateRegionScore() : 0;
         $birthdayScore = (!empty($this->birthday)) ? $this->calculateBirthdayScore() : 0;
         
         // the scores was stored as negative numbers
