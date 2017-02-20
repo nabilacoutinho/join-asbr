@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 use App\Prospect;
+use App\Region;
+use App\Unity;
 use Carbon\Carbon;
 
 class ProspectController extends Controller
@@ -44,8 +46,8 @@ class ProspectController extends Controller
         if ($prospect->save()) {
             
             $data = [
-                'success' => false,
-                'data' => ['prospect' => $prospect->toJson()]
+                'success' => true,
+                'data' => ['prospect' => $prospect]
             ];
             return response()->json($data, 200);
             
@@ -95,5 +97,47 @@ class ProspectController extends Controller
         return $prospect;
         
     }
+    
+    public function edit($id, Request $request) {
+        
+        $prospect = Prospect::where('id', $id)->first();
+        
+        if (empty($prospect)){
+            
+            return response()->json([
+                'success' => false,
+                'errors' => [
+                    'prospect' => 'Esse lead não foi encontrado'
+                ]
+            ]);
+            
+        }
+        
+        $region = Region::where('id', $request->region)->first();
+        $unity = Unity::where('id', $request->unity)->first();
+       
+        $prospect->region = $region;
+        $prospect->unity = $unity;
+        $prospect->calculateTotalScore();
+        
+        if($prospect->save()) {
+            
+            $endpointResult = $prospect->sendLead();
+            
+            return response()->json([
+                'success' => true,
+                'data' => ['prospect' => $prospect, 'endpoint' => $endpointResult]
+            ]);
+            
+        } else {
+            
+            return response()->json([
+                'success' => false,
+                'errors' => ['unknowing' => 'Ocorreu um erro desconhecido, tente novamente']
+            ]);
+        }
+        
+    }
+    
     
 }

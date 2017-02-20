@@ -3,6 +3,7 @@
 
 return [
     
+    'api_url' => 'http://api.actualsales.com.br/join-asbr/ti/lead', // endpoint url
     'api_token' => 'b1dbcd38a162923736c344e234b2c70f', // token to send data for endpoint
     
     'prospect_initial_score' => 10, // initial score to calculate prospect (lead) score

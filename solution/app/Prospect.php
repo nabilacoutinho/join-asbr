@@ -83,7 +83,7 @@ class Prospect extends Model
         $age = $actualDate->diffInYears($this->birthday);
         
         // get it from config
-        if ($age < 18 && $age >= 100) {
+        if ($age < 18 || $age >= 100) {
             $score = config('custom.birthday_child_score'); // A partir de 100 ou menor que 18: -5 pontos
         } elseif($age >= 40) {
             $score = config('custom.birthday_adult_score'); // Entre 40 e 99: -3 pontos
@@ -95,6 +95,38 @@ class Prospect extends Model
         
     }
     
+    
+    public function sendLead(){
+        
+        $url = config('custom.api_url');
+        $token = config('custom.api_token');
+                
+        $postData = [
+            'nome' => $this->name,
+            'email' => $this->name,
+            'telefone' => $this->name,
+            'data_nascimento' => $this->name,
+            'score' => $this->name,
+            'regiao' => $this->region->name,
+            'unidade' => (!empty($this->unity_id)) ? $this->unity->name : 'INDISPONÍVEL',
+            'token' => $token
+        ];
+        
+        $ch = curl_init();
+        curl_setopt_array($ch, [
+            CURLOPT_URL => $url,
+            CURLOPT_POST => true,
+            CURLOPT_POSTFIELDS => $postData,
+            CURLOPT_RETURNTRANSFER => true,
+        ]);
+        
+        $response = curl_exec($ch);
+        
+        curl_close($ch);
+        
+        return $response;
+        
+    }
     
     
 }
