@@ -41,23 +41,30 @@ class ProspectController extends Controller
             return response()->json($data, 200);
         }
         
-        $prospect = $this->createProspect($request);
-        
-        if ($prospect->save()) {
-            
-            $data = [
-                'success' => true,
-                'data' => ['prospect' => $prospect]
-            ];
-            return response()->json($data, 200);
-            
+        if ($this->isNewProspect($request->email)) {
+            $prospect = $this->createProspect($request);
+
+            if ($prospect->save()) {
+
+                $data = [
+                    'success' => true,
+                    'data' => ['prospect' => $prospect]
+                ];
+                return response()->json($data, 200);
+
+            } else {
+
+                $data = [
+                    'success' => false,
+                    'errors' => ['unknowing' => 'Ocorreu um erro desconhecido, tente novamente']
+                ];
+                return response()->json($data, 200);
+            }
         } else {
-            
-            $data = [
+            return response()->json([
                 'success' => false,
-                'errors' => ['unknowing' => 'Ocorreu um erro desconhecido, tente novamente']
-            ];
-            return response()->json($data, 200);
+                'errors' => ['duplicate' => 'Você já nos respondeu.']
+            ]);
         }
         
     }
@@ -86,7 +93,10 @@ class ProspectController extends Controller
      */
     private function createProspect(Request $request) {
         
-        $prospect = new Prospect();
+        $prospect = Prospect::where('email', $request->email)->first();
+        if(empty($prospect)) {
+            $prospect = new Prospect();
+        }
         
         $prospect->name = $request->name;
         $prospect->email = $request->email;
@@ -136,6 +146,14 @@ class ProspectController extends Controller
                 'errors' => ['unknowing' => 'Ocorreu um erro desconhecido, tente novamente']
             ]);
         }
+        
+    }
+    
+    private function isNewProspect($email) {
+        
+        $prospect = Prospect::where('email', $email)->first();
+        // return true if prospect doesn't exists or if he/she doesn't complete the lead
+        return empty($prospect) || empty($prospect->region);
         
     }
     
