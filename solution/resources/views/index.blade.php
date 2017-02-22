@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-br" ng-app="leadApp">
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +7,11 @@
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
         <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+        
+        <!-- angular scripts -->
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.2/angular.min.js"></script>
+        <script type="text/javascript" src="app/lead.js"></script>
+        
     </head>
     <body>
         <div class="container">
@@ -20,9 +25,9 @@
             </div>
 
             <div class="row">
-                <div class="col-lg-6" id="form-container">
+                <div class="col-lg-6" id="form-container" ng-controller="LeadFormController as formController">
 
-                    <form id="step_1" class="form-step">
+                    <form id="step_1" class="form-step ng-hide" ng-show="formController.isCurrentStep(1)" >
                         <div class="panel panel-info">
                             <div class="panel-heading">
                                 <div class="panel-title">
@@ -34,36 +39,40 @@
                                     <div class="row form-group">
                                         <div class="col-lg-6">
                                             <label>Nome Completo</label>
-                                            <input class="form-control" type="text" name="nome">
+                                            <input class="form-control" type="text" name="nome" ng-model="formController.lead.name">
                                         </div>
 
                                         <div class="col-lg-6">
                                             <label>Data de Nascimento</label>
-                                            <input class="form-control" type="text" name="data_nascimento">
+                                            <input class="form-control" type="text" name="data_nascimento" ng-model="formController.lead.birthday">
                                         </div>
                                     </div>
 
                                     <div class="row form-group">
                                         <div class="col-lg-6">
                                             <label>Email</label>
-                                            <input class="form-control" type="text" name="email">
+                                            <input class="form-control" type="text" name="email" ng-model="formController.lead.email">
                                         </div>
 
                                         <div class="col-lg-6">
                                             <label>Telefone</label>
-                                            <input class="form-control" type="text" name="telefone">
+                                            <input class="form-control" type="text" name="telefone" ng-model="formController.lead.phone">
                                         </div>
                                     </div>
 
                                     <div>
-                                        <button type="submit" class="btn btn-lg btn-info next-step">Próximo Passo</button>
+                                        <button type="submit" 
+                                                class="btn btn-lg btn-info next-step" 
+                                                ng-click="formController.submitFirstStep()">
+                                            Próximo Passo
+                                        </button>
                                     </div>
                                 </fieldset>
                             </div>
                         </div>
                     </form>
 
-                    <form id="step_2" class="form-step" style="display:none">
+                    <form id="step_2" class="form-step ng-hide" ng-show="formController.isCurrentStep(2)" style="/* display:none */">
                         <div class="panel panel-info">
                             <div class="panel-heading">
                                 <div class="panel-title">
@@ -102,7 +111,7 @@
                         </div>
                     </form>
 
-                    <div id="step_sucesso" class="form-step" style="display:none">
+                    <div id="step_sucesso" class="form-step ng-hide" ng-show="formController.isCurrentStep(3)" style="/* display:none */">
                         <div class="panel panel-info">
                             <div class="panel-heading">
                                 <div class="panel-title">
@@ -122,12 +131,12 @@
             </div>
         </div>
         <script>
-            $(function () {
+            /*$(function () {
                 $('.next-step').click(function (event) {
                     event.preventDefault();
                     $(this).parents('.form-step').hide().next().show();
                 });
-            });
+            });*/
         </script>
     </body>
 </html>

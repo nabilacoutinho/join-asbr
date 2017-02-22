@@ -48,7 +48,7 @@ class ProspectController extends Controller
 
                 $data = [
                     'success' => true,
-                    'data' => ['prospect' => $prospect]
+                    'prospect' => $prospect
                 ];
                 return response()->json($data, 200);
 
@@ -122,6 +122,16 @@ class ProspectController extends Controller
             ]);
             
         }
+        if (!empty($prospect->region)){
+            
+            return response()->json([
+                'success' => false,
+                'errors' => [
+                    'duplicate' => 'Você já nos respondeu.'
+                ]
+            ]);
+            
+        }
         
         $region = Region::where('id', $request->region)->first();
         $unity = Unity::where('id', $request->unity)->first();
@@ -136,7 +146,8 @@ class ProspectController extends Controller
             
             return response()->json([
                 'success' => true,
-                'data' => ['prospect' => $prospect, 'endpoint' => $endpointResult]
+                'prospect' => $prospect, 
+                'endpoint' => $endpointResult
             ]);
             
         } else {
