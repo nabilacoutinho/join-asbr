@@ -27,7 +27,8 @@
             <div class="row">
                 <div class="col-lg-6" id="form-container" ng-controller="LeadFormController as formController">
 
-                    <form id="step_1" class="form-step ng-hide" ng-show="formController.isCurrentStep(1)" >
+                    <form id="step_1" class="form-step ng-hide" 
+                          ng-show="formController.isCurrentStep(1)" ng-submit="formController.saveLead()" >
                         <div class="panel panel-info">
                             <div class="panel-heading">
                                 <div class="panel-title">
@@ -61,9 +62,7 @@
                                     </div>
 
                                     <div>
-                                        <button type="submit" 
-                                                class="btn btn-lg btn-info next-step" 
-                                                ng-click="formController.submitFirstStep()">
+                                        <button type="submit" class="btn btn-lg btn-info next-step">
                                             Próximo Passo
                                         </button>
                                     </div>
@@ -72,7 +71,8 @@
                         </div>
                     </form>
 
-                    <form id="step_2" class="form-step ng-hide" ng-show="formController.isCurrentStep(2)" style="/* display:none */">
+                    <form id="step_2" class="form-step ng-hide" ng-show="formController.isCurrentStep(2)" style="/* display:none */"
+                          ng-submit="formController.saveRegion()">
                         <div class="panel panel-info">
                             <div class="panel-heading">
                                 <div class="panel-title">
@@ -84,21 +84,24 @@
                                     <div class="row form-group">
                                         <div class="col-lg-6">
                                             <label>Região</label>
-                                            <select class="form-control" name="regiao">
+                                            <select class="form-control" name="regiao" ng-model="formController.lead.region"
+                                                    ng-change="formController.loadUnity()"
+                                                     ng-options="obj.id as obj.name for (key , obj) in formController.regions track by obj.id">
                                                 <option value="">Selecione a sua região</option>
-                                                <option>Sul</option>
+                                                <!--<option>Sul</option>
                                                 <option>Sudeste</option>
                                                 <option>Centro-Oeste</option>
                                                 <option>Nordeste</option>
-                                                <option>Norte</option>
+                                                <option>Norte</option>-->
                                             </select>
                                         </div>
 
                                         <div class="col-lg-6">
                                             <label>Unidade</label>
-                                            <select class="form-control" name="unidade">
+                                            <select class="form-control" name="unidade" ng-model="formController.lead.unity"
+                                                    ng-options="obj.id as obj.name for (key , obj) in formController.unities track by obj.id">
                                                 <option value="">Selecione a unidade mais próxima</option>
-                                                <option>???</option>
+                                                <!--<option>???</option>-->
                                             </select>
                                         </div>
                                     </div>

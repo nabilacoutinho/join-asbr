@@ -132,12 +132,9 @@ class ProspectController extends Controller
             ]);
             
         }
-        
-        $region = Region::where('id', $request->region)->first();
-        $unity = Unity::where('id', $request->unity)->first();
        
-        $prospect->region = $region;
-        $prospect->unity = $unity;
+        $prospect->region_id = $request->region;
+        $prospect->unity_id = $request->unity;
         $prospect->calculateTotalScore();
         
         if($prospect->save()) {

@@ -26,7 +26,7 @@ class RegionController extends Controller
         
         $regions = Region::all(['id', 'name']);
         
-        return response()->json(['data' => $regions]);
+        return response()->json($regions);
         
     }
     
@@ -43,13 +43,13 @@ class RegionController extends Controller
         
         if(empty($region)) {
             
-            return response()->json(['data' => []]);
+            return response()->json([]);
             
         }
         
         $unities = $this->getUnities($region);
         
-        return response()->json(['data' => $unities]);
+        return response()->json($unities);
         
     }
     

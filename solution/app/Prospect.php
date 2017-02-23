@@ -58,15 +58,17 @@ class Prospect extends Model
      * @return int score calulated
      */
     private function calculateRegionScore() {
+        // works if the user wasn't saved
+        $region = Region::where('id', $this->region_id)->first();
+        $unity = (!empty($this->unity_id)) ? Unity::where('id', $this->unity_id)->first() : null;
         
-        $score = $this->region->score;
-        
-        if (!empty($this->unity) && $this->unity->has_custom_score) {
-            $score = (!empty($this->unity->custom_score)) ? $this->unity->custom_score : $this->region->score;
+        $score = $region->score;
+
+        if (!empty($unity) && $unity->has_custom_score) {
+            $score = $unity->custom_score;
         }
-        
+
         return $score;
-        
     }
     
     /**
@@ -98,17 +100,21 @@ class Prospect extends Model
     
     public function sendLead(){
         
+        // works if the user wasn't saved
+        $region = Region::where('id', $this->region_id)->first();
+        $unity = (!empty($this->unity_id)) ? Unity::where('id', $this->unity_id)->first() : null;
+        
         $url = config('custom.api_url');
         $token = config('custom.api_token');
                 
         $postData = [
             'nome' => $this->name,
-            'email' => $this->name,
-            'telefone' => $this->name,
-            'data_nascimento' => $this->name,
-            'score' => $this->name,
-            'regiao' => $this->region->name,
-            'unidade' => (!empty($this->unity_id)) ? $this->unity->name : 'INDISPONÍVEL',
+            'email' => $this->email,
+            'telefone' => $this->phone,
+            'data_nascimento' => $this->birthday->format('Y-m-d'),
+            'score' => $this->total_score,
+            'regiao' => $region->name,
+            'unidade' => (!empty($unity)) ? $unity->name : 'INDISPONÍVEL',
             'token' => $token
         ];
         
@@ -118,8 +124,12 @@ class Prospect extends Model
             CURLOPT_POST => true,
             CURLOPT_POSTFIELDS => $postData,
             CURLOPT_RETURNTRANSFER => true,
+            
         ]);
         
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+
         $response = curl_exec($ch);
         
         curl_close($ch);
