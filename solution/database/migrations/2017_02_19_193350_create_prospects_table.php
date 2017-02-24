@@ -22,6 +22,7 @@ class CreateProspectsTable extends Migration
             $table->integer('region_id')->unsigned()->nullable();
             $table->integer('unity_id')->unsigned()->nullable();
             $table->integer('total_score');
+            $table->boolean('is_sync')->default(false);
             $table->timestamps();
             
             $table->foreign('region_id')->references('id')->on('regions'); 

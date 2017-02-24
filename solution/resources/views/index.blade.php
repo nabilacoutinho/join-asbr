@@ -10,6 +10,7 @@
         
         <!-- angular scripts -->
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.2/angular.min.js"></script>
+        <script type="text/javascript" src="js/ngMask.min.js"></script>
         <script type="text/javascript" src="app/lead.js"></script>
         
     </head>
@@ -38,26 +39,48 @@
                             <div class="panel-body">
                                 <fieldset>
                                     <div class="row form-group">
-                                        <div class="col-lg-6">
-                                            <label>Nome Completo</label>
+                                        <div class="col-lg-6"  ng-class="{'has-error': formController.errors.name !== undefined}">
+                                            <label class="control-label">Nome Completo</label>
                                             <input class="form-control" type="text" name="nome" ng-model="formController.lead.name">
+                                            
+                                            <p class="help-block text-danger">
+                                                @{{formController.errors.name[0]}}
+                                            </p>
+                                            
                                         </div>
 
-                                        <div class="col-lg-6">
-                                            <label>Data de Nascimento</label>
-                                            <input class="form-control" type="text" name="data_nascimento" ng-model="formController.lead.birthday">
+                                        <div class="col-lg-6" ng-class="{'has-error': formController.errors.birthday !== undefined}">
+                                            <label class="control-label">Data de Nascimento</label>
+                                            <input class="form-control" type="text" name="data_nascimento"
+                                                   mask="39/19/9999" clean="false" ng-model="formController.lead.birthday">
+                                            
+                                            <p class="help-block text-danger">
+                                                @{{formController.errors.birthday[0]}}
+                                            </p>
+                                            
                                         </div>
                                     </div>
 
                                     <div class="row form-group">
-                                        <div class="col-lg-6">
-                                            <label>Email</label>
+                                        <div class="col-lg-6" ng-class="{'has-error': formController.errors.email !== undefined}">
+                                            <label class="control-label">Email</label>
                                             <input class="form-control" type="text" name="email" ng-model="formController.lead.email">
+                                            
+                                            <p class="help-block text-danger">
+                                                @{{formController.errors.email[0]}}
+                                            </p>
+                                            
                                         </div>
 
-                                        <div class="col-lg-6">
-                                            <label>Telefone</label>
-                                            <input class="form-control" type="text" name="telefone" ng-model="formController.lead.phone">
+                                        <div class="col-lg-6" ng-class="{'has-error': formController.errors.phone !== undefined}">
+                                            <label class="control-label">Telefone</label>
+                                            <input class="form-control" type="text" name="telefone"
+                                                    mask="(99) 9?9999-9999" clean="false" ng-model="formController.lead.phone">
+                                            
+                                            <p class="help-block text-danger">
+                                                @{{formController.errors.phone[0]}}
+                                            </p>
+                                            
                                         </div>
                                     </div>
 
@@ -82,8 +105,8 @@
                             <div class="panel-body">
                                 <fieldset>
                                     <div class="row form-group">
-                                        <div class="col-lg-6">
-                                            <label>Região</label>
+                                        <div class="col-lg-6" ng-class="{'has-error': formController.errors.region !== undefined}">
+                                            <label class="control-label">Região</label>
                                             <select class="form-control" name="regiao" ng-model="formController.lead.region"
                                                     ng-change="formController.loadUnity()"
                                                      ng-options="obj.id as obj.name for (key , obj) in formController.regions track by obj.id">
@@ -94,15 +117,25 @@
                                                 <option>Nordeste</option>
                                                 <option>Norte</option>-->
                                             </select>
+                                            
+                                            <p class="help-block text-danger">
+                                                @{{formController.errors.region[0]}}
+                                            </p>
+                                            
                                         </div>
 
-                                        <div class="col-lg-6">
-                                            <label>Unidade</label>
+                                        <div class="col-lg-6"  ng-class="{'has-error': formController.errors.unity !== undefined}">
+                                            <label class="control-label">Unidade</label>
                                             <select class="form-control" name="unidade" ng-model="formController.lead.unity"
                                                     ng-options="obj.id as obj.name for (key , obj) in formController.unities track by obj.id">
-                                                <option value="">Selecione a unidade mais próxima</option>
+                                                <option value="">@{{ formController.defaultUnityOptionLabel }}</option>
                                                 <!--<option>???</option>-->
                                             </select>
+                                            
+                                            <p class="help-block text-danger">
+                                                @{{formController.errors.unity[0]}}
+                                            </p>
+                                            
                                         </div>
                                     </div>
 

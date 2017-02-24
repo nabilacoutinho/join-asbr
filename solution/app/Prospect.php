@@ -97,7 +97,10 @@ class Prospect extends Model
         
     }
     
-    
+    /**
+     * send this lead to end point
+     * @return response
+     */
     public function sendLead(){
         
         // works if the user wasn't saved
@@ -118,11 +121,28 @@ class Prospect extends Model
             'token' => $token
         ];
         
+        $response = $this->sendPost($url, $postData);
+        
+        $this->is_sync = $response->success;
+        $this->save();
+        
+        return $response;
+        
+    }
+    
+    /**
+     * send post request to endpoint
+     * @param string $url
+     * @param array $params
+     * @return response
+     */
+    private function sendPost($url, $params) {
+        
         $ch = curl_init();
         curl_setopt_array($ch, [
             CURLOPT_URL => $url,
             CURLOPT_POST => true,
-            CURLOPT_POSTFIELDS => $postData,
+            CURLOPT_POSTFIELDS => $params,
             CURLOPT_RETURNTRANSFER => true,
             
         ]);
@@ -134,9 +154,7 @@ class Prospect extends Model
         
         curl_close($ch);
         
-        return $response;
+        return json_decode($response);
         
     }
-    
-    
 }
