@@ -1,40 +1,51 @@
-<p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
+# Hi there, I'm Nabila Saturnina
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+Oi, sou Nabila e esta é a minha solução para o desafio da Actual Sales Brasil.
 
-## About Laravel
+## Um pouco sobre mim
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as:
+Sou desenvolvedora full stack web e mobile. Isso quer dizer que trabalho (ou posso trabalhar) em diferentes camadas do desenvolvimento web (backend e frontend) e também desenvolvo aplicativos mobile nativos.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Trabalho com desenvolvimento deste o final de 2011 e já trabalhei em várias linguagens de programação, mas nos últimos anos tenho focado em trabalhar com PHP.
 
-Laravel is accessible, yet powerful, providing tools needed for large, robust applications. A superb combination of simplicity, elegance, and innovation give you tools you need to build any application with which you are tasked.
+Algumas linguagens de programação e marcação, frameworks e ferramentas que já trabalhei:
 
-## Learning Laravel
+- PHP
+- Laravel Framework
+- Yii2 Framework
+- HTML
+- XML
+- Arquitetura REST & Webservices
+- CSS
+- Javascript
+- JSON
+- AngularJS
+- Jquery
+- Java (Android)
+- Android NDK, Android SDK, Google Services Lib
+- Swift
+- Cocoa Framework, CoreData Framework
+- iBeacons & Eddystone
+- C# (.Net)
+- VBA
+- MySql, SQLite & MS SQLServer
 
-Laravel has the most extensive and thorough documentation and video tutorial library of any modern web application framework. The [Laravel documentation](https://laravel.com/docs) is thorough, complete, and makes it a breeze to get started learning the framework.
+Você pode saber mais sobre mim através do [meu perfil no LinkedIn](https://www.linkedin.com/in/nabilasaturnina/).
 
-If you're not in the mood to read, [Laracasts](https://laracasts.com) contains over 900 video tutorials on a range of topics including Laravel, modern PHP, unit testing, JavaScript, and more. Boost the skill level of yourself and your entire team by digging into our comprehensive video library.
+## O que usei para desenvolver essa solução
 
-## Contributing
+Para a solução desse desafio utilizei:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
+- Laravel Framework
+- AngularJS
+- MySql
 
-## Security Vulnerabilities
+Utilizei essas tecnologias porque são algumas das stacks da Actual Sales. Além disso, o uso desses frameworks garantem o desenvolvimento mais ágil e alguns mecanismos de performance e segurança.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
+No banco de dados, além da tabela de leads (que na solução coloquei o nome de prospects e após estar bem avançado vi que no enunciado do desafio está lead) também deixei no banco a tabela de regiões e unidades para que a solução fique um pouco mais escalonável. O script para criação do banco e inserir as regiões e unidades estão em ./db-script.sql
 
-## License
+Alguns parâmetros para o processamento do lead estão configurados no arquivo ./config/custom.php
 
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
+## É só isso, pessoal
+
+Não implementei nessa solução algumas coisas como validação via AngularJS (apenas no Laravel) ou modifiquei o HTML (o desafio é com forte no backend). Mesmo assim estou satisfeita com resultado e espero que vocês também!
